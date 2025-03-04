@@ -130,8 +130,11 @@ void new_free(void *mem)
     {
         // TODO: add the block to the free list
         printf("add the block to the free list\n");
+        if(head->fd == NULL)  head->fd = head;
+        if(head->bk == NULL)  head->bk = head;
         p->bk = head->bk;
         p->fd = head;
+        head->bk->fd = p;
         head->bk = p;
         printf("bk = %p, fd = %p\n", p->bk, p->fd);
         printf("chunk addr = %p, prev size = %d, size: %d, prev inuse: %d, fd = %p, bk = %p\n", p, p->prev_size, p->size - prev_inuse(p), prev_inuse(p), p->fd, p->bk);
